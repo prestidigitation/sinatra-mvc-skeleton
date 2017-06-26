@@ -16,8 +16,15 @@ end
 
 # create
 post '/contacts' do
+  puts params
   @contact = Contact.create(params[:contact])
-  redirect '/contacts'
+  if @contact.valid?
+    redirect '/contacts'
+  else
+    status 422
+    @errors = @contact.errors.full_messages
+    erb :'contacts/new'
+  end
 end
 
 # show
@@ -38,7 +45,13 @@ def update_contact
   puts params
   @contact = Contact.find(params[:id])
   @contact.update(params[:contact])
-  redirect "/contacts/#{@contact.id}"
+  if @contact.valid?
+    redirect "/contacts/#{@contact.id}"
+  else
+    status 422
+    @errors = @contact.errors.full_messages
+    erb :'contacts/edit'
+  end
 end
 
 patch '/contacts/:id' do
