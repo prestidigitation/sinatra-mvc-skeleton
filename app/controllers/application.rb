@@ -3,19 +3,21 @@ get '/' do
 end
 
 # index
-get '/contacts' do
+get '/contacts/?' do
   @contacts = Contact.all
   erb :'contacts/index'
 end
 
 # new
 get '/contacts/new' do
-  "This is the contacts new action"
+  erb :'contacts/new'
 end
 
 # create
 post '/contacts' do
-  "This is the contacts create action"
+  puts params
+  @contact = Contact.create(params[:contact])
+  redirect '/contacts'
 end
 
 # show
