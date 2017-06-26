@@ -1,8 +1,25 @@
+<style>
+form { display: inline; }
+
+form input {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font: inherit;
+  color: #36AECC;
+  cursor: auto;
+}
+</style>
+
 <h1>All Contacts</h1>
 <div class="contacts">
   <ul>
     <% @contacts.each do |contact| %>
-      <li><%= "#{contact.id}  - #{contact.email}" %><a href="/contacts/<%= contact.id %>"></li>
+      <li>
+        <%= "#{contact.id}  - #{contact.email}" %>
+        <a href="/contacts/<%= contact.id %>">Show</a>
+        <%= erb :'contacts/_delete', layout: false, locals: { contact: contact } %>
+      </li>
     <% end %>
   </ul>
 </div>
