@@ -5,7 +5,7 @@ end
 # index
 get '/contacts' do
   @contacts = Contact.all
-  @contacts.map { |contact| contact.email }.to_s
+  erb :'contacts/index'
 end
 
 # new
@@ -20,9 +20,8 @@ end
 
 # show
 get '/contacts/:id' do
-  puts params
   @contact = Contact.find(params[:id])
-  @contact.email
+  erb :'contacts/show'
 end
 
 ### All of the following actions are referred to as member actions, since they act on a single member
